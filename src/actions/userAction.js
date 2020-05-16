@@ -8,9 +8,9 @@ import {baseUrl} from '../baseUrl';
 
 const signinUserAction = (payload) => ({ type: LOGIN_USER, payload });
 const signupUserAction = (payload) => ({ type: SIGNUP_USER, payload });
-export const loaderAction = (status) => ({type: SET_STATUS, status})
+export const loaderAction = (status) => ({type: SET_STATUS, status});
 export const authError = (error) => ({ type: USER_ERROR, error});
-export const logoutAction = () => ({ type: LOGOUT });;
+export const logoutAction = () => ({ type: LOGOUT });
 
 export const signinUser = (user)  => dispatch => {
 	dispatch(loaderAction(true));

@@ -14,7 +14,7 @@ class SignupPage extends Component {
 	componentDidUpdate() {
 		const { currentUser, history } = this.props;
 		if (currentUser.type === SIGNUP_USER) {
-			history.push('/calculations');
+			history.push('/calculator');
 		}
 	}
 
