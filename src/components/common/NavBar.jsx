@@ -1,33 +1,34 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-// import {connect} from 'react-redux';
-// import {logout} from '../../actions/userAction';
+import {connect} from 'react-redux';
+import {logout} from '../../actions/userAction';
 
-export class NavBar extends Component {
+class NavBar extends Component {
 
-	// onLogout = () => {
-	// 	const {logout} = this.props;
-	// 	localStorage.clear();
-	// 	logout();
-	// };
+	onLogout = () => {
+		const {logout} = this.props;
+		localStorage.clear();
+		logout();
+	};
 
 	render() {
-		// const {isAuthenticated} = this.props;
+		const {isAuthenticated} = this.props;
 		return (
 			<header>
 				<div className="container">
 					<div className="logo-name">
-						<Link to="/"><i id="logo" className="fa fa-cutlery"></i></Link>
-						<h1 className="logo-name-style">Nu-<span className="fast-color">Binary</span></h1>
+						<h1 className="logo-name-style">
+							<Link to="/">Nu-<span className="fast-color">Binary</span></Link>
+						</h1>
 					</div>
 					<div className="login-signup">
 						{
-							// !isAuthenticated ? (
+							!isAuthenticated ? (
 								<div>
 									<Link className="login-link" to="/login">Log In</Link>
 									<Link className="signup-link" to="/signup">Sign Up</Link>
 								</div>
-							// ) : <div><Link onClick={this.onLogout} className="logout-link" to="/">Logout</Link></div>
+							) : <div><Link onClick={this.onLogout} className="logout-link" to="/">Logout</Link></div>
 						}
 					</div>
 				</div>
@@ -36,11 +37,10 @@ export class NavBar extends Component {
 	}
 }
 
-// const mapStateToProps = ({currentUser}) => {
-// 	return {
-// 		isAuthenticated: currentUser.isAuthenticated
-// 	}
-// };
+const mapStateToProps = ({currentUser}) => {
+	return {
+		isAuthenticated: currentUser.isAuthenticated
+	}
+};
 
-// export default connect(mapStateToProps, {logout})(NavBar);
-export  default NavBar;
+export default connect(mapStateToProps, {logout})(NavBar);
