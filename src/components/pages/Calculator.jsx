@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PopUp from '../pure/PopUp';
-// import { allActivities, createActivity, getActivity } from '../../actions/activities';
+import { userResults, computeResult } from '../../actions/calculationAction';
 // import '../../assets/stylesheets/Home.scss';
 
 export class Calculator extends Component {
 	state = {
-		title: '',
+		first_input: '',
+		second_input: '',
 		showPopUp: false
 	};
 
-	// componentDidMount() {
-	// 	const { allActivities } = this.props;
-	// 	allActivities();
-	// };
+	componentDidMount() {
+		const { userResults } = this.props;
+		userResults();
+	};
 
 	onChange = (event) => {
 		this.setState({
@@ -24,13 +24,14 @@ export class Calculator extends Component {
 		});
 	};
 
-	// onSubmit = (event) => {
-	// 	event.preventDefault();
-	// 	const { title } = this.state;
-	// 	const { createActivity } = this.props;
-	// 	createActivity(title);
-	// 	this.togglePopUp();
-	// };
+	onSubmit = (event) => {
+		event.preventDefault();
+		const { first_input, second_input } = this.state;
+		const { computeResult } = this.props;
+		const payload = { first_input, second_input }
+		computeResult(payload);
+		this.togglePopUp();
+	};
 
 	togglePopUp = () => {
 		this.setState({
@@ -39,7 +40,7 @@ export class Calculator extends Component {
 	};
 
 	render() {
-		// const { activitiesList } = this.props;
+		const { userResultsList } = this.props;
 		return (
 			<div className="container">
 				<div className="page-content d-flex">
@@ -47,17 +48,16 @@ export class Calculator extends Component {
 					<div className="col-sm-12">
 						<h3 className="activities text-center m-20">Activities</h3>
 						<div className="list-activities row">
-							{/*{activitiesList && activitiesList.map(activity => {*/}
-							{/*	const timeago = new TimeAgo('en-US');*/}
-							{/*	const new_date = timeago.format(new Date(activity.created_at));*/}
-							{/*	return (*/}
-							{/*		<div className="card col-md-3 activity-card" key={activity.id}>*/}
-							{/*			<div className="card-body text-center">*/}
-							{/*				<div className="title">{activity.title}</div>*/}
-							{/*				<div className="date">{new_date}</div>*/}
-							{/*				<Link to="#">View more</Link></div>*/}
-							{/*		</div>);*/}
-							{/*})}*/}
+							{userResultsList && userResultsList.map(result => {
+								return (
+									<div className="card col-md-3 activity-card" key={result.id}>
+										<div className="card-body text-center">
+											<div className="first-string">First String: {result.first_string}</div>
+											<div className="second-string">Second String: {result.second_string}</div>
+											<div className="result">Result: {result.result}</div>
+										</div>
+									</div>);
+							})}
 						</div>
 					</div>
 					<div className="create-icon">
@@ -69,11 +69,9 @@ export class Calculator extends Component {
 	}
 }
 
-// const mapStateToProps = ({activities}) => ({
-// 	activities,
-// 	activitiesList: activities.activitiesList,
-// 	activity: activities.activity
-// });
+const mapStateToProps = ({calculations}) => ({
+	calculations,
+	userResultsList: calculations.userResultsList && calculations.userResultsList.results
+});
 
-// export default connect(mapStateToProps, {allActivities, createActivity, getActivity})(Home);
-export default Calculator;
+export default connect(mapStateToProps, {userResults, computeResult})(Calculator);

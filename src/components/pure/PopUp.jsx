@@ -10,10 +10,10 @@ const PopUp = ({onChange, onSubmit, closePopUp}) => {
 				</div>
 				<form className="modals-body" onSubmit={(event) => onSubmit(event)}>
 					<div className="form-group">
-						<input type="text" className="form-control" onChange={(event) => onChange(event)} id="first-string" placeholder="Enter First String" required />
+						<input type="text" className="form-control" onChange={(event) => onChange(event)} id="first_input" placeholder="Enter First String" required />
 					</div>
 					<div className="form-group">
-						<input type="text" className="form-control" onChange={(event) => onChange(event)} id="second-string" placeholder="Enter Second String" required />
+						<input type="text" className="form-control" onChange={(event) => onChange(event)} id="second_input" placeholder="Enter Second String" required />
 					</div>
 					<div className="modal-footer d-flex justify-content-center">
 						<button type="submit" className="btn btn-primary">Compute</button>
